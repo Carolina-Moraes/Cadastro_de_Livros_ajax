@@ -1,0 +1,51 @@
+body {
+    background-color: rgb(146, 146, 146);
+}
+
+.listagem-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    background: #9D29CF;
+    background: repeating-radial-gradient(circle farthest-side at top center, #9D29CF 0%, #D23DFF 0%, #2E43CF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 40px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+#registrosTable {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #313131;
+}
+
+#registrosTable th,
+#registrosTable td {
+    padding: 8px;
+}
+
+#registrosTable th{
+    color: white;
+}
+
+button {
+    background-color: #9D29CF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #40c9ff;
+}

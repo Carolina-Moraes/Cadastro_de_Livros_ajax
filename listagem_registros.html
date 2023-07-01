@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Listagem de Registros</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <link rel="stylesheet" href="listagem.css" />
+</head>
+<body>
+  <div class="listagem-container">
+    <h1>Listagem de Registros</h1>
+
+    <table id="registrosTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descrição</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <button onclick="window.location.href='index.html'">Voltar ao Cadastro</button>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var table = $('#registrosTable').DataTable({
+        ajax: {
+          url: 'https://jsonplaceholder.typicode.com/posts',
+          dataSrc: ''
+        },
+        columns: [
+          { data: 'id' },
+          { data: 'title' },
+          { data: 'body' },
+          {
+            data: null,
+            render: function(data, type, row) {
+              return '<button data-id="' + data.id + '" data-title="' + data.title + '" data-body="' + data.body + '" class="editarBtn">Editar</button>';
+            }
+          }
+        ]
+      });
+
+      $('#registrosTable tbody').on('click', '.editarBtn', function() {
+        var id = $(this).data('id');
+        var title = $(this).data('title');
+        var body = $(this).data('body');
+        
+        window.location.href = 'index.html?id=' + id + '&title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+      });
+    });
+  </script>
+</body>
+</html>

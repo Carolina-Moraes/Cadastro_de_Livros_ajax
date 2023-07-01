@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cadastro de Livro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h1>Cadastro de Livro</h1>
+    <form id="cadastroForm">
+      <div class="form-group">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" placeholder="Informe o título do livro" required="">
+      </div>
+      <div class="form-group">
+        <label for="textarea">Descrição:</label>
+        <textarea name="textarea" id="textarea" rows="10" cols="50" placeholder="Informe uma breve descrição do livro" required=""></textarea>
+      </div>
+      <div class="btn-group">
+        <button class="form-submit-btn" type="submit">Cadastrar</button>
+        <button class="form-submit-btn" onclick="window.location.href='listagem_registros.html'">Ir para Listagem</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var id = getParameterByName('id');
+      var title = getParameterByName('title');
+      var body = getParameterByName('body');
+
+      if (id && title && body) {
+        $('#title').val(title);
+        $('#textarea').val(body);
+      }
+
+      $('#cadastroForm').on('submit', function(event) {
+        event.preventDefault();
+
+        var title = $('#title').val();
+        var body = $('#textarea').val();
+
+        var livro = {
+          title: title,
+          body: body,
+          userId: 1,
+          id: 1
+        };
+
+        $.ajax({
+          type: 'POST',
+          url: 'https://jsonplaceholder.typicode.com/posts',
+          data: JSON.stringify(livro),
+          contentType: 'application/json',
+          success: function(data) {
+            livro.id = data.id;
+            alert('Livro cadastrado com sucesso!');
+            console.log(livro);
+          },
+          error: function() {
+            alert('Ocorreu um erro ao cadastrar o livro.');
+          }
+        });
+      });
+
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      }
+    });
+  </script>
+</body>
+</html>
