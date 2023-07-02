@@ -1,7 +1,5 @@
 body {
   background-color: #313131;
-  max-width: 1920px;
-  height: 900px;
   display: grid;
   place-items: center;
   overflow-y: hidden;
